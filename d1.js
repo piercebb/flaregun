@@ -73,7 +73,9 @@ export class D1 {
     const errMsg = String(err)
     const isRetryableError =
       errMsg.includes('Network connection lost') ||
-      errMsg.includes('storage caused object to be reset') ||
+      // Both the older 'D1 DB storage caused object to be reset' and the current
+      // 'D1 DB storage operation exceeded timeout which caused object to be reset.'
+      errMsg.includes('caused object to be reset') ||
       errMsg.includes('reset because its code was updated')
     return attempt <= 5 && isRetryableError
   }
